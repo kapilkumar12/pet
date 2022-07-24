@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- // search bar -->
+    <input style="text-align:center" type="text" name="" id="myInput" placeholder="names.." width="100%" onkeyup="searchFun()">
+
+    <table border="1" cellspacing="0" cellpadding="10" id="mytable"  width="100%" 
+    style="text-align:center; text-transform: uppercase; color: bold">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Breed</th>
+        
+        <th>Age</th>
+        <th>  </th>
+        <th>  </th>
+        <th>  </th>
+
+       
+      </tr>
+      <tbody>
+        <% for( let i = 0; i <pet.length; i++ ){ %>
+        <tr>
+          <td><%=pet[i].name %></td>
+          <td><%=pet[i].type %></td>
+          <td><%=pet[i].breed %></td>
+          
+          <td><%=pet[i].age %></td>
+          
+          <!-- <td>
+            <button class="btn btn-primary"><a href="/list/updateUser?id=">Update</a></button>
+          </td> -->
+          <td><a href="/petList/updatePet?id=<%= pet[i]._id %>"><button class="btn btn-danger" >Update</button></a></td>
+
+         <td> <button  
+            id="userdelete"  
+            class="btn btn-primary mr-lg-2"style="background-red: #2e8b57;width: 100px; height: 30px;radius: 10%;" 
+            onclick="deletePet('<%=pet[i]._id %>');">Delete 
+            </button></td>
+            <td><a href="/pet"><button class="btn btn-danger" >Add</button></a></td>
+            
+        </tr>
+        <% } %>
+      </tbody>
+      <tfoot>
+        <tr>
+         
+          
+        </tr>
+      </tfoot>
+    </table>
+    </div>
+  </div>
+</div>
+
+
+  </body>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script>
+
+
+function editformupdate(id,name,type,breed,age) {
+        $("#name").val(name);
+        $("#type").val(type);
+        $("#breed").val(breed);
+        $("#password").val(password);
+        $("#age").val(age);
+       
+      }
+     
+//       $(document).ready(function () {
+//   $('#dtBasicExample').DataTable();
+//   $('.dataTables_length').addClass('bs-select');
+// });
+      var edittestform = $("#form");
+
+      edittestform.on("submit", edittestsubmitHandler);
+
+      function edittestsubmitHandler(e) {
+        e.preventDefault();
+
+        // PREPARE FORM DATA
+        var tmpFormData = getFormData(edittestform);
+        tmpFormData.category = getUrlParameter("id");
+        var formData = JSON.stringify(tmpFormData);
+
+        $.ajax({
+          type: "POST",
+          contentType: "application/json",
+          url: "/petList/editPet",
+          data: JSON.stringify({
+              id: id,
+            }),
+        }).done((res) => {
+           window.location.reload();
+          }).fail((xhr) => {
+            alert(xhr.responseText);
+          });
+      }
+
+//user delete
+        function deletePet(id) {
+            console.log(id)
+        if (confirm("Do you really want to delete this ")) {
+          // DO POST
+          $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/petList/petdelete",
+            data: JSON.stringify({
+              id: id,
+            }),
+          }).done((res) => {
+           window.location.reload();
+          }).fail((xhr) => {
+            alert(xhr.responseText);
+          });
+        }
+      }
+
+      const searchFun = () => {
+        let filter = document.getElementById("myInput").value.toUpperCase();
+        let myTable = document.getElementById("mytable");
+        let tr = myTable.getElementsByTagName("tr");
+        for (var i = 0; i < tr.length; i++) {
+            let td = tr[i].getElementsByTagName("td")[0];
+            if (td){
+              let textvalue = td.textContent || td.innerHTML;
+              if(textvalue.toUpperCase().indexOf(filter) > -1){
+                tr[i].style.display = "";
+              }else{
+                tr[i].style.display = "none";
+              }
+            }
+        }
+      }
+  </script>
+</html>
