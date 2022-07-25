@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const PetListController = require("../controller/petListController")
-// const validation = require("../middleware/validation")
+const validation = require("../config/validation")
 router.get("/", PetListController.view)
 
 router.post("/addPet", PetListController.addPet);

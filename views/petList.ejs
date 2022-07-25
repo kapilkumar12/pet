@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Pet List</title>
   </head>
   <body>
     <!-- // search bar -->
-    <input style="text-align:center" type="text" name="" id="myInput" placeholder="names.." width="100%" onkeyup="searchFun()">
-
+    <input style="text-align:center;width:20%; border:1px solid "  type="text" name="" id="myInput" placeholder="names.." width="100%" onkeyup="searchFun()">
+     <a href="/pet"><button class="btn btn-danger;" style="float: right; width:10%"   >Add</button></a>
     <table border="1" cellspacing="0" cellpadding="10" id="mytable"  width="100%" 
     style="text-align:center; text-transform: uppercase; color: bold">
       <tr>
@@ -20,7 +20,7 @@
         <th>Age</th>
         <th>  </th>
         <th>  </th>
-        <th>  </th>
+        
 
        
       </tr>
@@ -36,14 +36,14 @@
           <!-- <td>
             <button class="btn btn-primary"><a href="/list/updateUser?id=">Update</a></button>
           </td> -->
-          <td><a href="/petList/updatePet?id=<%= pet[i]._id %>"><button class="btn btn-danger" >Update</button></a></td>
+          <td><a href="/petList/updatePet?id=<%= pet[i]._id %>"><button class="btn btn-danger"style=" background-color:green; color:bold" >Update</button></a></td>
 
          <td> <button  
             id="userdelete"  
-            class="btn btn-primary mr-lg-2"style="background-red: #2e8b57;width: 100px; height: 30px;radius: 10%;" 
+            class="btn btn-primary mr-lg-2; background-color:red"style="background-color:red; color:bold" 
             onclick="deletePet('<%=pet[i]._id %>');">Delete 
             </button></td>
-            <td><a href="/pet"><button class="btn btn-danger" >Add</button></a></td>
+              
             
         </tr>
         <% } %>
